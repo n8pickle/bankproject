@@ -13,7 +13,7 @@ namespace Database
 		}
 
 		public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-		public DbSet<Account> Accounts { get; set; }
+		public DbSet<Account> Account { get; set; }
 		public DbSet<Transaction> Transaction { get; set; }
 		public DbSet<TransactionType> TransactionType { get; set; }
 		public DbSet<AccountType> Type { get; set; }
