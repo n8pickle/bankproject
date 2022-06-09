@@ -18,7 +18,7 @@ public class AccountRepository : IAccountRepository {
         if (account == null) {
             throw new Exception("The account could not be found");
         }
-        
+
         account.Balance += amount;
         await _dbContext.SaveChangesAsync();
     }

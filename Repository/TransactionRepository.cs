@@ -4,11 +4,11 @@ using Domain;
 namespace Repository;
 
 // This is the class that talks to the database
-public class TrnasactionRepository : ITransactionRepository {
+public class TransactionRepository : ITransactionRepository {
     private MyDbContext _dbContext;
 
     // This is the database context. It allows us to access the database
-    public TrnasactionRepository(MyDbContext dbContext) {
+    public TransactionRepository(MyDbContext dbContext) {
         _dbContext = dbContext;
     }
 
