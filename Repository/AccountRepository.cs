@@ -13,6 +13,12 @@ public class AccountRepository : IAccountRepository {
     public AccountRepository(MyDbContext dbContext) {
         _dbContext = dbContext;
     }
+
+    public async Task CreateAccount(Account account) {
+        await _dbContext.Account.AddAsync(account);
+        await _dbContext.SaveChangesAsync(); 
+    }
+
     public async Task UpdateAccountBalance(int amount, int accountId) {
         var account = await _dbContext.Account.Where((a) => a.Id == accountId).FirstOrDefaultAsync();
         if (account == null) {

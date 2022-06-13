@@ -30,15 +30,19 @@ builder.Services.AddCors(options =>
 				    .AllowCredentials();
 			});
 		});
+
 /*
 	These are the services that we are injecting. It sounds scarier than it is
 	The ones that I added were the ITransactionService and The ITransactionRepo
 	if you not the constructors in each of the different classes they generally will have a dependency inject in at creation time
 	This is just one of those things that you have to know is happening.
 */
+
 builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
 builder.Services.AddTransient<ITransactionService, TransactionService>();
+builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<ITransactionRepository, TransactionRepository>();
+builder.Services.AddTransient<IAccountRepository, AccountRepository>();
 
 builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
 
