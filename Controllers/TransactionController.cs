@@ -5,13 +5,17 @@ using Services;
 
 namespace Controllers;
 
+
+// Controller. Service. Repository
+// http request. business logic. talk to database
+
 /*
     This Route attribute can only be used on a class that inherets one of the Controller classes from the AspNetCore.Mvc package
     The Route attribute will decide what the url is that you call when you are making a request to your endpoint.
     For example right here we are saying we will call "host:port/api/Transaction" the [Controller] inside the route string is
     a special pattern matching that takes whatever is in the name of the class minus the "Controller" part.
 */
-[Route("api/[Controller]")]
+[Route("api/[controller]")]
 public class TransactionController : Controller {
 
     private ITransactionService _transService;
@@ -51,7 +55,6 @@ public class TransactionController : Controller {
     
     // Create api's
     [HttpPost]
-    [Route("transaction")]
     public async Task<IActionResult> CreateTransaction([FromBody]Transaction trans) {
         // surround all the code in the controller in Try/Catch. This is good practice for getting errors
         try {
@@ -63,9 +66,20 @@ public class TransactionController : Controller {
             Console.WriteLine($"Request failed with Stack Trace: {e} \n\n");
             // BadRequest should only ever get used if the data sent is bad, but we are going to use it anyway here.
             return new BadRequestObjectResult("There was an error with your request data");
+            // Status Code 400 
         }
     }
 
     // Read api's
+    [HttpGet]
+    [Route("account/{accountId}")]
+    public async Task<IActionResult> GetAllTransactionsByAccount([FromRoute]int accountId) {
+        try {
+            return Ok(await _transService.GetAllTransactionsByAccount(accountId));
+        } catch (Exception e) {
+            Console.WriteLine(e);
+            return StatusCode(500, "");
+        }
+    }
 
 }

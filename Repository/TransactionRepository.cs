@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
 using Database;
 using Domain;
+using System.Data;
+using Microsoft.EntityFrameworkCore;
 namespace Repository;
 
 // This is the class that talks to the database
@@ -17,5 +19,10 @@ public class TransactionRepository : ITransactionRepository {
         await _dbContext.Transaction.AddAsync(trans);
         // Make sure to save changes if you add or update the database
         await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task<List<Transaction>> GetAllTransactionsByAccount(int accountId) {
+        return await _dbContext.Transaction.Where((t) => t.AccountId == accountId).ToListAsync();
+
     }
 }
