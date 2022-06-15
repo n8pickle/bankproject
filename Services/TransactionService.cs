@@ -21,10 +21,14 @@ public class TransactionService : ITransactionService {
     public async Task CreateTransaction(Transaction trans) {
         // update balance
         //I will fix that this doesn't have amount. But notice that this is where we can call the repository of other verticals.
-        await _accountRepo.UpdateAccountBalance(trans.Amount, trans.AccountIdId);
+        await _accountRepo.UpdateAccountBalance(trans.Amount, trans.AccountId);
 
         // create transaction record
         await _transRepo.CreateTransaction(trans);
+    }
+
+    public async Task<List<Transaction>> GetAllTransactionsByAccount(int accountId) {
+        return await _transRepo.GetAllTransactionsByAccount(accountId);
     }
 
 }
