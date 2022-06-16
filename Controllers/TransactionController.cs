@@ -72,7 +72,7 @@ public class TransactionController : Controller {
 
     // Read api's
     [HttpGet]
-    [Route("account/{accountId}")]
+    [Route("/{accountId}")]
     public async Task<IActionResult> GetAllTransactionsByAccount([FromRoute]int accountId) {
         try {
             return Ok(await _transService.GetAllTransactionsByAccount(accountId));

@@ -19,13 +19,37 @@ public class AccountRepository : IAccountRepository {
         await _dbContext.SaveChangesAsync(); 
     }
 
+    public async Task<List<Account>> GetAccountByUserId(int userId) {
+        return await _dbContext.Account.Where((a) => a.UserId == userId && a.Deleted == 0).ToListAsync();
+    }
+
     public async Task UpdateAccountBalance(int amount, int accountId) {
-        var account = await _dbContext.Account.Where((a) => a.Id == accountId).FirstOrDefaultAsync();
+        var account = await _dbContext.Account.Where((a) => a.Id == accountId && a.Deleted == 0).FirstOrDefaultAsync();
         if (account == null) {
             throw new Exception("The account could not be found");
         }
 
         account.Balance += amount;
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task UpdateAccountData(Account account) 
+    {
+        var dbAccount = await _dbContext.Account.Where((a) => a.Id == account.Id && a.Deleted == 0).FirstOrDefaultAsync();
+        if (dbAccount == null) {
+            throw new Exception("The Account coudl not be found");
+        }
+        dbAccount.Type = account.Type;
+        dbAccount.Balance = account.Balance;
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task DeleteAccount(int accountId) {
+        var dbAccount = await _dbContext.Account.Where((a) => a.Id == accountId).FirstOrDefaultAsync();
+        if (dbAccount == null) {
+            throw new Exception("The Account could not be found");
+        }
+        dbAccount.Deleted = 1;
         await _dbContext.SaveChangesAsync();
     }
 }
