@@ -81,5 +81,38 @@ public class TransactionController : Controller {
             return StatusCode(500, "");
         }
     }
+    
+    [HttpGet]
+    [Route("/{accountId}")]
+    public async Task<IActionResult> DeleteTransactionsByAccount([FromRoute]int accountId) {
+        try {
+            return Ok(await _transService.DeleteTransactionsByAccount(accountId));
+        } catch (Exception e) {
+            Console.WriteLine(e);
+            return StatusCode(500, "");
+        }
+    }
+    //delete transaction by ID
+    [HttpGet]
+    [Route("/{transactionId}")]
+    public async Task<IActionResult> DeleteTransactionById([FromRoute]int transactionId){
+        try{
+            return Ok(await _transService.DeleteTransactionById(transactionId));
+        }catch (Exception e){
+            Console.WriteLine(e);
+            return StatusCode(500, "");
+        }
+    }
 
+    //get transaction by id
+    [HttpGet]
+    [Route("/{transactionId}")]
+    public async Task<IActionResult> GetTransactionById([FromRoute]int transactionId) {
+        try {
+            return Ok(await _transService.GetTransactionByAccount(transactionId));
+        } catch (Exception e) {
+            Console.WriteLine(e);
+            return StatusCode(500, "");
+        }
+    }
 }

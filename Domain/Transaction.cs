@@ -8,4 +8,5 @@ public class Transaction {
     public DateTime TransactionDate {get; set;}
     public int AccountId {get; set;}
     public int TransferAccountId {get; set;}
+    public int Deleted {get; set;}
 }
