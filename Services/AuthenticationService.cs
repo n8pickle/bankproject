@@ -36,5 +36,14 @@ namespace Services
 			await _dbContext.SaveChangesAsync();
 			return result;
 		}
+		public async Task<bool> CheckUserExists(User userName)
+		{
+			var result = await _userManager.FindByNameAsync(userName);
+			if (result != null){
+				return true;
+			}else{
+				return false;
+			}
+		}
 	}
 }
