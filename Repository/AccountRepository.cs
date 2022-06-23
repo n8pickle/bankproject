@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Database;
 using Domain;
+using Domain.DTO;
 namespace Repository;
 
 public class AccountRepository : IAccountRepository {
@@ -50,6 +51,14 @@ public class AccountRepository : IAccountRepository {
             throw new Exception("The Account could not be found");
         }
         dbAccount.Deleted = 1;
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task TransferBalance(Transfer transfer) {
+        var fromAccount = await _dbContext.Account.Where((a) => a.Id == transfer.AccountId).FirstOrDefaultAsync();
+        var toAccount = await _dbContext.Account.Where((a) => a.Id == transfer.ToAccount).FirstOrDefaultAsync();
+        fromAccount.Balance = fromAccount.Balance - transfer.Amount;
+        toAccount.Balance = toAccount.Balance + transfer.Amount;
         await _dbContext.SaveChangesAsync();
     }
 }

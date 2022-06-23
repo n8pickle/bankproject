@@ -1,5 +1,6 @@
 using Repository;
 using Domain;
+using Domain.DTO;
 using System.Threading.Tasks;
 namespace Services;
 
@@ -28,5 +29,14 @@ public class AccountService : IAccountService {
     
     public async Task DeleteAccount(int accountId) {
         await _accountRepo.DeleteAccount(accountId);
+    }
+
+    public async Task TransferBalance(Transfer transfer) {
+        await _accountRepo.TransferBalance(transfer);
+    }
+
+    public async Task Deposit(Balance balance) {
+        // await new Promise();
+        return;
     }
 }
