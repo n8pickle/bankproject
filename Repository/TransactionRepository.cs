@@ -57,7 +57,7 @@ public class TransactionRepository : ITransactionRepository {
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task GetTransactionById(int transactionId){
+    public async Task<Transaction> GetTransactionById(int transactionId){
         //get transaction
         var dbTransaction = await _dbContext.Transaction.Where((a) => a.Id == transactionId)
         //throw exception if its null
