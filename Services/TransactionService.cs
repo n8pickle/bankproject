@@ -33,12 +33,12 @@ public class TransactionService : ITransactionService {
         return await _transRepo.GetAllTransactionsByAccount(accountId);
     }
     public async Task DeleteTransactionsByAccount(int accountId){
-        return await _transRepo.DeleteTransactionsByAccount(accountId);
+        await _transRepo.DeleteTransactionsByAccount(accountId);
     }
     public async Task DeleteTransactionById(int transactionId){
-        return await _transRepo.DeleteTransactionById(transactionId);
+        await _transRepo.DeleteTransactionById(transactionId);
     }
-    public async Task GetTransactionById(int transactionId){
+    public async Task<Transaction> GetTransactionById(int transactionId){
         return await _transRepo.GetTransactionById(transactionId);
     }
 

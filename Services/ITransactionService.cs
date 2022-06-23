@@ -7,5 +7,5 @@ public interface ITransactionService {
     Task<List<Transaction>> GetAllTransactionsByAccount(int accountId);
     Task DeleteTransactionsByAccount(int accountId);
     Task DeleteTransactionById(int transactionId);
-    Task GetTransactionById(int transactionId);
+    Task<Transaction> GetTransactionById(int transactionId);
 }

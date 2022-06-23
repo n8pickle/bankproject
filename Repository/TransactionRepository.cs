@@ -42,7 +42,7 @@ public class TransactionRepository : ITransactionRepository {
 
     public async Task DeleteTransactionById(int transactionId){
         //get transaction
-        var dbTransaction = await _dbContext.Transaction.Where((a) => a.Id == transactionId)
+        var dbTransaction = await _dbContext.Transaction.Where((a) => a.Id == transactionId).FirstOrDefaultAsync();
         //throw exception if its null
         if (dbTransaction == null){
             throw new Exception("The Transaction could not be found");
@@ -53,9 +53,9 @@ public class TransactionRepository : ITransactionRepository {
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task GetTransactionById(int transactionId){
+    public async Task<Transaction> GetTransactionById(int transactionId){
         //get transaction
-        var dbTransaction = await _dbContext.Transaction.Where((a) => a.Id == transactionId)
+        var dbTransaction = await _dbContext.Transaction.Where((a) => a.Id == transactionId).FirstOrDefaultAsync();
         //throw exception if its null
         if (dbTransaction == null){
             throw new Exception("The Transaction could not be found");

@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Domain;
+using Domain.DTO;
 using Services;
 using Microsoft.AspNetCore.Mvc;
 namespace Controllers;
@@ -16,15 +17,24 @@ public class AccountController : Controller {
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateAccount([FromBody]Account account) {
+    public async Task CreateAccount([FromBody]Account account) {
         try {
             await _accountService.CreateAccount(account);
-            return Ok();
         } catch (Exception e) {
-            return StatusCode(400, e);
+            Console.WriteLine(e);
         }
     }
 
+    [HttpPost]
+    [Route("tranfer/")]
+    public async Task TransferBalance([FromBody]Transfer transfer) 
+    {
+        try {
+            _accountService.TransferBalance(transfer);
+        } catch (Exception e) {
+            Console.WriteLine(e);
+        }
+    }
     [HttpGet]
     public async Task<IActionResult> GetAccountsByUser(int userId) {
         try {

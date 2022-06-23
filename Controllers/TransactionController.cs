@@ -75,7 +75,8 @@ public class TransactionController : Controller {
     [Route("/{accountId}")]
     public async Task<IActionResult> GetAllTransactionsByAccount([FromRoute]int accountId) {
         try {
-            return Ok(await _transService.GetAllTransactionsByAccount(accountId));
+            await _transService.GetAllTransactionsByAccount(accountId);
+            return Ok();
         } catch (Exception e) {
             Console.WriteLine(e);
             return StatusCode(500, "");
@@ -86,7 +87,8 @@ public class TransactionController : Controller {
     [Route("/{accountId}")]
     public async Task<IActionResult> DeleteTransactionsByAccount([FromRoute]int accountId) {
         try {
-            return Ok(await _transService.DeleteTransactionsByAccount(accountId));
+            await _transService.DeleteTransactionsByAccount(accountId);
+            return Ok();
         } catch (Exception e) {
             Console.WriteLine(e);
             return StatusCode(500, "");
@@ -97,7 +99,8 @@ public class TransactionController : Controller {
     [Route("/{transactionId}")]
     public async Task<IActionResult> DeleteTransactionById([FromRoute]int transactionId){
         try{
-            return Ok(await _transService.DeleteTransactionById(transactionId));
+            await _transService.DeleteTransactionById(transactionId);
+            return Ok();
         }catch (Exception e){
             Console.WriteLine(e);
             return StatusCode(500, "");
@@ -109,7 +112,7 @@ public class TransactionController : Controller {
     [Route("/{transactionId}")]
     public async Task<IActionResult> GetTransactionById([FromRoute]int transactionId) {
         try {
-            return Ok(await _transService.GetTransactionByAccount(transactionId));
+            return Ok(await _transService.GetTransactionById(transactionId));
         } catch (Exception e) {
             Console.WriteLine(e);
             return StatusCode(500, "");
