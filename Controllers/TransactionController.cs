@@ -81,6 +81,17 @@ public class TransactionController : Controller {
             return StatusCode(500, "");
         }
     }
+
+    [HttpGet]
+    [Route("/{userId}")]
+    public async Task<IActionResult> GetAllTransactionsByUserId([FromRoute]int userId) {
+        try {
+            return Ok(await _transService.GetAllTransactionsByUserId(userId));
+        } catch (Exception e) {
+            Console.WriteLine(e);
+            return StatusCode(500, "");
+        }
+    }
     
     [HttpGet]
     [Route("/{accountId}")]

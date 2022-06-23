@@ -25,6 +25,10 @@ public class TransactionRepository : ITransactionRepository {
         return await _dbContext.Transaction.Where((t) => t.AccountId == accountId).ToListAsync();
     }
 
+    public async Task<List<Transaction>> GetAllTransactionsByUserId(int userId){
+        return await _dbContext.Transaction.Where((t) => t.userId == userId).ToListAsync();
+    }
+
     public async Task DeleteTransactionsByAccount(int accountId){
         var dbAccount = await _dbContext.Transaction.Where((a) => a.Id == accountId).ToListAsync();
         //throw exception if there isnt any transactions to the account id
@@ -64,6 +68,6 @@ public class TransactionRepository : ITransactionRepository {
         return dbTransaction;
     }
 
-    p
+
 
 }

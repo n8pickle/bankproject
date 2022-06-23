@@ -41,5 +41,8 @@ public class TransactionService : ITransactionService {
     public async Task GetTransactionById(int transactionId){
         return await _transRepo.GetTransactionById(transactionId);
     }
+    public async Task<List<Transaction>> GetAllTransactionsByUserId(int userId){
+        return await _transRepo.GetAllTransactionsByUserId(userId);
+    }
 
 }

@@ -8,4 +8,5 @@ public interface ITransactionService {
     Task DeleteTransactionsByAccount(int accountId);
     Task DeleteTransactionById(int transactionId);
     Task GetTransactionById(int transactionId);
+    Task<List<Transaction>> GetAllTransactionsByUserId(int userId);
 }
