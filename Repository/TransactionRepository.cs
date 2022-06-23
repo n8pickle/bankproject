@@ -23,6 +23,47 @@ public class TransactionRepository : ITransactionRepository {
 
     public async Task<List<Transaction>> GetAllTransactionsByAccount(int accountId) {
         return await _dbContext.Transaction.Where((t) => t.AccountId == accountId).ToListAsync();
-
     }
+
+    public async Task DeleteTransactionsByAccount(int accountId){
+        var dbAccount = await _dbContext.Transaction.Where((a) => a.Id == accountId).ToListAsync();
+        //throw exception if there isnt any transactions to the account id
+        if (dbAccount == null){
+            throw new Exception("The Account transaction could not be found");
+        }
+        //delete all transaction for the account
+        foreach (var trans in dbAccount)
+        {
+            trans.Deleted = 1;
+        }
+        //save changes
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task DeleteTransactionById(int transactionId){
+        //get transaction
+        var dbTransaction = await _dbContext.Transaction.Where((a) => a.Id == transactionId)
+        //throw exception if its null
+        if (dbTransaction == null){
+            throw new Exception("The Transaction could not be found");
+        }
+        // "delete" the transaction
+        dbTransaction.Deleted = 1;
+        //save changes
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task GetTransactionById(int transactionId){
+        //get transaction
+        var dbTransaction = await _dbContext.Transaction.Where((a) => a.Id == transactionId)
+        //throw exception if its null
+        if (dbTransaction == null){
+            throw new Exception("The Transaction could not be found");
+        }
+        //return the transaction
+        return dbTransaction;
+    }
+
+    
+
 }

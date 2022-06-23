@@ -25,10 +25,21 @@ public class TransactionService : ITransactionService {
 
         // create transaction record
         await _transRepo.CreateTransaction(trans);
+
+        
     }
 
     public async Task<List<Transaction>> GetAllTransactionsByAccount(int accountId) {
         return await _transRepo.GetAllTransactionsByAccount(accountId);
+    }
+    public async Task DeleteTransactionsByAccount(int accountId){
+        return await _transRepo.DeleteTransactionsByAccount(accountId);
+    }
+    public async Task DeleteTransactionById(int transactionId){
+        return await _transRepo.DeleteTransactionById(transactionId);
+    }
+    public async Task GetTransactionById(int transactionId){
+        return await _transRepo.GetTransactionById(transactionId);
     }
 
 }
