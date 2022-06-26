@@ -72,7 +72,7 @@ public class TransactionController : Controller {
 
     // Read api's
     [HttpGet]
-    [Route("/{accountId}")]
+    [Route("account/{accountId}")]
     public async Task<IActionResult> GetAllTransactionsByAccount([FromRoute]int accountId) {
         try {
             await _transService.GetAllTransactionsByAccount(accountId);
@@ -83,8 +83,8 @@ public class TransactionController : Controller {
         }
     }
     
-    [HttpGet]
-    [Route("/{accountId}")]
+    [HttpDelete]
+    [Route("account/{accountId}")]
     public async Task<IActionResult> DeleteTransactionsByAccount([FromRoute]int accountId) {
         try {
             await _transService.DeleteTransactionsByAccount(accountId);
@@ -95,7 +95,7 @@ public class TransactionController : Controller {
         }
     }
     //delete transaction by ID
-    [HttpGet]
+    [HttpDelete]
     [Route("/{transactionId}")]
     public async Task<IActionResult> DeleteTransactionById([FromRoute]int transactionId){
         try{

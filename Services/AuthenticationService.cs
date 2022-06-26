@@ -30,13 +30,13 @@ namespace Services
 			await _signInManager.SignOutAsync();
 		}
 
-		public async Task<IdentityResult> CreateUserAsync(String user)
+		public async Task<IdentityResult> CreateUserAsync(User user)
 		{
 			var result = await _userManager.CreateAsync(new ApplicationUser { UserName = user.UserName }, user.Password);
 			await _dbContext.SaveChangesAsync();
 			return result;
 		}
-		public async Task<bool> CheckUserExists(User userName)
+		public async Task<bool> CheckUserExists(String userName)
 		{
 			var result = await _userManager.FindByNameAsync(userName);
 			if (result == null) {return false;} return true;
