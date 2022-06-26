@@ -53,10 +53,9 @@ namespace Controllers
 
 		[HttpPost]
 		[Route("/{username}")]
-		public async Task<IActionResult> CheckUserExists([FromRoute] User userName){
+		public async Task<IActionResult> CheckUserExists([FromRoute] String userName){
 			try{
-				await _authenticationService.CheckUserExists(username);
-				return Ok();
+				return Ok(await _authenticationService.CheckUserExists(username));
 			}catch (Exception e){
 				Console.WriteLine(e);
 				return StatusCode(500, "");

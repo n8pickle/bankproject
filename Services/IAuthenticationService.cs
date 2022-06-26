@@ -9,6 +9,6 @@ namespace Services
 		Task<bool> SignInAsync(SignIn signIn);
 		Task SignOutAsync();
 		Task<IdentityResult> CreateUserAsync(User user);
-		Task<bool> CheckUserExists(User userName);
+		Task<bool> CheckUserExists(String userName);
 	}
 }

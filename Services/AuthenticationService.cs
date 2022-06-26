@@ -30,7 +30,7 @@ namespace Services
 			await _signInManager.SignOutAsync();
 		}
 
-		public async Task<IdentityResult> CreateUserAsync(User user)
+		public async Task<IdentityResult> CreateUserAsync(String user)
 		{
 			var result = await _userManager.CreateAsync(new ApplicationUser { UserName = user.UserName }, user.Password);
 			await _dbContext.SaveChangesAsync();
@@ -39,11 +39,7 @@ namespace Services
 		public async Task<bool> CheckUserExists(User userName)
 		{
 			var result = await _userManager.FindByNameAsync(userName);
-			if (result != null){
-				return true;
-			}else{
-				return false;
-			}
+			if (result == null) {return false;} return true;
 		}
 	}
 }
