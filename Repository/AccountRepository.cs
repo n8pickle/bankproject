@@ -21,7 +21,7 @@ public class AccountRepository : IAccountRepository {
     }
 
     public async Task<List<Account>> GetAccountByUserId(Guid userId) {
-        return await _dbContext.Account.Where((a) => a.UserId.ToString().ToString() == userId.ToString() && a.Deleted == 0).ToListAsync();
+        return await _dbContext.Account.Where((a) => a.UserId.ToString() == userId.ToString() && a.Deleted == 0).ToListAsync();
     }
 
     public async Task UpdateAccountBalance(int amount, int accountId) {
