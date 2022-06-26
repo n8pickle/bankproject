@@ -50,5 +50,16 @@ namespace Controllers
 			await _authenticationService.SignOutAsync();
 			return Ok();
 		}
+
+		[HttpPost]
+		[Route("/{username}")]
+		public async Task<IActionResult> CheckUserExists([FromRoute] String userName){
+			try{
+				return Ok(await _authenticationService.CheckUserExists(username));
+			}catch (Exception e){
+				Console.WriteLine(e);
+				return StatusCode(500, "");
+			}
+		}
 	}
 }
