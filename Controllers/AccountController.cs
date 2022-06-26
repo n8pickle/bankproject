@@ -36,7 +36,7 @@ public class AccountController : Controller {
         }
     }
     [HttpGet]
-    public async Task<IActionResult> GetAccountsByUser(int userId) {
+    public async Task<IActionResult> GetAccountsByUser(Guid userId) {
         try {
             return Ok(await _accountService.GetAccountByUserId(userId));
         } catch (Exception e) {
@@ -45,10 +45,10 @@ public class AccountController : Controller {
     }
 
     [HttpPatch]
-    [Route("{accountId}/balance/{amount}")]
-    public async Task<IActionResult> UpdateAccountBalance([FromRoute]int accountId, [FromRoute]int amount) {
+    [Route("/balance")]
+    public async Task<IActionResult> UpdateAccountBalance([FromBody]Balance balance) {
         try {
-            await _accountService.UpdateAccountBalance(amount, accountId);
+            await _accountService.UpdateAccountBalance(balance.Amount, balance.AccountId);
             return Ok();
         } catch (Exception e) {
             return StatusCode(400, e);
@@ -76,4 +76,14 @@ public class AccountController : Controller {
             return StatusCode(400, e);
         }
     }
+    
+    [HttpGet]
+    [Route("type")]
+    public async Task<IActionResult> GetAccountTypes() {
+        try {
+            return Ok(await _accountService.GetAccountTypes());
+        } catch (Exception e) {
+            return StatusCode(400, e);
+        }
+    } 
 }

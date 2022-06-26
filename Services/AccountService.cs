@@ -15,7 +15,7 @@ public class AccountService : IAccountService {
         await _accountRepo.CreateAccount(account);
     }
 
-    public async Task<List<Account>> GetAccountByUserId(int userId) {
+    public async Task<List<Account>> GetAccountByUserId(Guid userId) {
         return await _accountRepo.GetAccountByUserId(userId);
     }
 
@@ -35,8 +35,7 @@ public class AccountService : IAccountService {
         await _accountRepo.TransferBalance(transfer);
     }
 
-    public async Task Deposit(Balance balance) {
-        // await new Promise();
-        return;
+    public async Task<List<AccountType>> GetAccountTypes() {
+        return await _accountRepo.GetAccountTypes();
     }
 }
