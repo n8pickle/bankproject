@@ -75,8 +75,7 @@ public class TransactionController : Controller {
     [Route("account/{accountId}")]
     public async Task<IActionResult> GetAllTransactionsByAccount([FromRoute]Guid accountId) {
         try {
-            await _transService.GetAllTransactionsByAccount(accountId);
-            return Ok();
+            return Ok(await _transService.GetAllTransactionsByAccount(accountId));
         } catch (Exception e) {
             Console.WriteLine(e);
             return StatusCode(500, "");
