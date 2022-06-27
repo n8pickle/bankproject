@@ -46,7 +46,7 @@ public class AccountController : Controller {
     }
 
     [HttpPatch]
-    [Route("/balance")]
+    [Route("balance")]
     public async Task<IActionResult> UpdateAccountBalance([FromBody]Balance balance) {
         try {
             await _accountService.UpdateAccountBalance(balance.Amount, balance.AccountId);

@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Domain;
+using Domain.DTO;
 using Repository;
 
 namespace Services;
@@ -21,12 +22,14 @@ public class TransactionService : ITransactionService {
     public async Task CreateTransaction(Transaction trans) {
         // update balance
         //I will fix that this doesn't have amount. But notice that this is where we can call the repository of other verticals.
-        await _accountRepo.UpdateAccountBalance(trans.Amount, trans.AccountId);
+        Transfer transfer = new Transfer();
+        transfer.Amount = trans.Amount;
+        transfer.ToAccount = trans.TransferAccountId;
+        transfer.AccountId = trans.AccountId;
+        await _accountRepo.TransferBalance(transfer);
 
         // create transaction record
         await _transRepo.CreateTransaction(trans);
-
-        
     }
 
     public async Task<List<Transaction>> GetAllTransactionsByAccount(int accountId) {
