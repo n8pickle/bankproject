@@ -22,8 +22,8 @@ public class TransactionRepository : ITransactionRepository {
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<List<Transaction>> GetAllTransactionsByAccount(int accountId) {
-        return await _dbContext.Transaction.Where((t) => t.AccountId == accountId).ToListAsync();
+    public async Task<List<Transaction>> GetAllTransactionsByAccount(Guid accountId) {
+        return await _dbContext.Transaction.Where((t) => t.AccountId.ToString() == accountId.ToString()).ToListAsync();
     }
 
     public async Task DeleteTransactionsByAccount(int accountId){

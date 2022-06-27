@@ -32,7 +32,7 @@ public class TransactionService : ITransactionService {
         await _transRepo.CreateTransaction(trans);
     }
 
-    public async Task<List<Transaction>> GetAllTransactionsByAccount(int accountId) {
+    public async Task<List<Transaction>> GetAllTransactionsByAccount(Guid accountId) {
         return await _transRepo.GetAllTransactionsByAccount(accountId);
     }
     public async Task DeleteTransactionsByAccount(int accountId){
