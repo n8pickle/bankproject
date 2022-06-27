@@ -5,7 +5,7 @@ public class Transaction {
     public int Id {get; set;}
     public Guid UserId {get; set;}
     public int Amount {get; set;}
-    public int TransactionTypeId {get; set;}
+    public string TransactionType {get; set;}
     public DateTime TransactionDate {get; set;}
     public int AccountId {get; set;}
     public int TransferAccountId {get; set;}

@@ -23,7 +23,8 @@ public class TransactionRepository : ITransactionRepository {
     }
 
     public async Task<List<Transaction>> GetAllTransactionsByAccount(Guid accountId) {
-        return await _dbContext.Transaction.Where((t) => t.AccountId.ToString() == accountId.ToString()).ToListAsync();
+        var result = await _dbContext.Transaction.Where((t) => t.UserId.ToString() == accountId.ToString()).ToListAsync();
+        return result; 
     }
 
     public async Task DeleteTransactionsByAccount(int accountId){
