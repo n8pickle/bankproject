@@ -30,7 +30,7 @@ public class AccountController : Controller {
     public async Task TransferBalance([FromBody]Transfer transfer) 
     {
         try {
-            _accountService.TransferBalance(transfer);
+            await _accountService.TransferBalance(transfer);
         } catch (Exception e) {
             Console.WriteLine(e);
         }

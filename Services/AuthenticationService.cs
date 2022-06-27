@@ -10,11 +10,13 @@ namespace Services
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly SignInManager<ApplicationUser> _signInManager;
+		private readonly IAccountService _accountService;
 		private readonly MyDbContext _dbContext;
-		public AuthenticationService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, MyDbContext dbContext)
+		public AuthenticationService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IAccountService accountService, MyDbContext dbContext)
 		{
 			_userManager = userManager;
 			_signInManager = signInManager;
+			_accountService = accountService;
 			_dbContext = dbContext;
 		}
 
@@ -33,6 +35,25 @@ namespace Services
 		public async Task<IdentityResult> CreateUserAsync(User user)
 		{
 			var result = await _userManager.CreateAsync(new ApplicationUser { UserName = user.UserName }, user.Password);
+			var retrieved = await _userManager.FindByNameAsync(user.UserName);
+			var checkingAccount = new Account();
+			checkingAccount.Balance = 0;
+			checkingAccount.Deleted = 0;
+			checkingAccount.Type = 1;
+			checkingAccount.UserId = new Guid(retrieved.Id);
+			await _accountService.CreateAccount(checkingAccount);
+			var savingsAccount = new Account();
+			savingsAccount.Balance = 0;
+			savingsAccount.Deleted = 0;
+			savingsAccount.Type = 2;
+			savingsAccount.UserId = new Guid(retrieved.Id);
+			await _accountService.CreateAccount(savingsAccount);
+			var moneyAccount = new Account();
+			moneyAccount.Balance = 0;
+			moneyAccount.Deleted = 0;
+			moneyAccount.Type = 3;
+			moneyAccount.UserId = new Guid(retrieved.Id);
+			await _accountService.CreateAccount(moneyAccount);
 			await _dbContext.SaveChangesAsync();
 			return result;
 		}
