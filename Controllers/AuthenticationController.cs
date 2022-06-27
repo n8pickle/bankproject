@@ -17,7 +17,7 @@ namespace Controllers
 
 		[HttpPost]
 		[Route("signin")]
-		public async Task<IActionResult> SignIn([FromBody] SignIn signIn)
+		public async Task<IActionResult> SignIn([FromBody]SignIn signIn)
 		{
 			ApplicationUser retrievedUser = null;
 			try
