@@ -15,6 +15,7 @@ public class TransactionRepository : ITransactionRepository {
     }
 
     public async Task CreateTransaction(Transaction trans) {
+        trans.TransactionDate = DateTime.Now;
         // Make sure the method that you use is Async
         await _dbContext.Transaction.AddAsync(trans);
         // Make sure to save changes if you add or update the database
