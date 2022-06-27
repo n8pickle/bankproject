@@ -49,7 +49,7 @@ public class AccountController : Controller {
     [Route("balance")]
     public async Task<IActionResult> UpdateAccountBalance([FromBody]Balance balance) {
         try {
-            await _accountService.UpdateAccountBalance(balance.Amount, balance.AccountId);
+            await _accountService.UpdateAccountBalance(balance.Amount, balance.AccountId, balance.UserId, balance.AccountType);
             return Ok();
         } catch (Exception e) {
             return StatusCode(400, e);
