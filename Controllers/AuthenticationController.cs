@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Services;
 using Domain.DTO;
+using Domain;
 
 namespace Controllers
 {
@@ -18,10 +19,11 @@ namespace Controllers
 		[Route("signin")]
 		public async Task<IActionResult> SignIn([FromBody] SignIn signIn)
 		{
+			ApplicationUser retrievedUser = null;
 			try
 			{
-				var testResult = await _authenticationService.SignInAsync(signIn);
-				if (!testResult)
+				retrievedUser = await _authenticationService.SignInAsync(signIn);
+				if (retrievedUser == null)
 				{
 					return Unauthorized();
 				}
@@ -31,15 +33,15 @@ namespace Controllers
 				System.Console.WriteLine(ex);
 				return Unauthorized();
 			}
-			return Ok();
+			return Ok(retrievedUser.Id);
 		}
 
 		[HttpPost]
 		[Route("create")]
 		public async Task<IActionResult> Create([FromBody] User user)
 		{
-			await _authenticationService.CreateUserAsync(user);
-			return Ok();
+			var retrievedUser = await _authenticationService.CreateUserAsync(user);
+			return Ok(retrievedUser.Id);
 		}
 
 		[HttpPost]

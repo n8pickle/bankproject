@@ -20,11 +20,14 @@ namespace Services
 			_dbContext = dbContext;
 		}
 
-		public async Task<bool> SignInAsync(SignIn signIn)
+		public async Task<ApplicationUser> SignInAsync(SignIn signIn)
 		{
 			var user = await _userManager.FindByNameAsync(signIn.UserName);
 			var result = await _signInManager.PasswordSignInAsync(user, signIn.Password, false, false);
-			return result.Succeeded;
+			if(!result.Succeeded) {
+				throw new Exception("user could not sign in");
+			}
+			return user;
 		}
 
 		public async Task SignOutAsync()
@@ -32,7 +35,7 @@ namespace Services
 			await _signInManager.SignOutAsync();
 		}
 
-		public async Task<IdentityResult> CreateUserAsync(User user)
+		public async Task<ApplicationUser> CreateUserAsync(User user)
 		{
 			var result = await _userManager.CreateAsync(new ApplicationUser { UserName = user.UserName }, user.Password);
 			var retrieved = await _userManager.FindByNameAsync(user.UserName);
@@ -55,7 +58,7 @@ namespace Services
 			moneyAccount.UserId = new Guid(retrieved.Id);
 			await _accountService.CreateAccount(moneyAccount);
 			await _dbContext.SaveChangesAsync();
-			return result;
+			return retrieved;
 		}
 		public async Task<bool> CheckUserExists(String userName)
 		{

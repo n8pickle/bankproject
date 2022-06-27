@@ -1,14 +1,14 @@
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+using Domain;
 using Domain.DTO;
 
 namespace Services
 {
 	public interface IAuthenticationService
 	{
-		Task<bool> SignInAsync(SignIn signIn);
+		Task<ApplicationUser> SignInAsync(SignIn signIn);
 		Task SignOutAsync();
-		Task<IdentityResult> CreateUserAsync(User user);
+		Task<ApplicationUser> CreateUserAsync(User user);
 		Task<bool> CheckUserExists(String userName);
 	}
 }
