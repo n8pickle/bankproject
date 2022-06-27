@@ -54,7 +54,7 @@ namespace Controllers
 		}
 
 		[HttpPost]
-		[Route("/{username}")]
+		[Route("{username}")]
 		public async Task<IActionResult> CheckUserExists([FromRoute] String userName){
 			try{
 				return Ok(await _authenticationService.CheckUserExists(userName));

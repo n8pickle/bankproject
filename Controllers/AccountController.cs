@@ -36,6 +36,7 @@ public class AccountController : Controller {
         }
     }
     [HttpGet]
+    [Route("user/{userId}")]
     public async Task<IActionResult> GetAccountsByUser(Guid userId) {
         try {
             return Ok(await _accountService.GetAccountByUserId(userId));
